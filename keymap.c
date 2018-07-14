@@ -199,9 +199,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,--------------------------------------------------.
    * |  Esc   | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |
    * |--------+------+------+------+------+------+------|
-   * |  Tab   |  \   |  -   |  <   |  >   |  `   | XXXX |
+   * |  Tab   |  \   |  =   |  <   |  >   |  `   | XXXX |
    * |--------+------+------+------+------+------|      |
-   * |  Ctrl  |  !   |  =   |  (   |  )   |  "   |------|
+   * |  Ctrl  |  !   |  -   |  (   |  )   |  "   |------|
    * |--------+------+------+------+------+------| Hyper|
    * |  Shift |  $   |  @   |  /   |  *   |  +   |      |
    * `--------+------+------+------+------+-------------'
@@ -239,8 +239,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LR_RSE] = KEYMAP(
       /* LEFT: */
       KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      KC_TAB,  KC_BSLS, KC_MINS, KC_LABK, KC_RABK, KC_GRV,  XXXXXXX,
-      KC_LCTL, KC_EXLM, KC_EQL,  KC_LPRN, KC_RPRN, KC_DQT,
+      KC_TAB,  KC_BSLS, KC_EQL,  KC_LABK, KC_RABK, KC_GRV,  XXXXXXX,
+      KC_LCTL, KC_EXLM, KC_MINS, KC_LPRN, KC_RPRN, KC_DQT,
       KC_LSFT, KC_DLR,  KC_AT,   KC_SLSH, KC_ASTR, KC_PLUS, MD_HYPR,
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_HOME, KC_END,
