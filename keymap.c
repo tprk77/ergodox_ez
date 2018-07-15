@@ -18,9 +18,7 @@ enum tprk77_layers {
 
 enum tprk77_fns {
   MO_NAV  = KC_FN0,
-  MO_LWR  = KC_FN1,
-  MO_RSE  = KC_FN2,
-  TG_GMNG = KC_FN3
+  TG_GMNG = KC_FN1
 };
 
 enum tprk77_mod_keys {
@@ -47,7 +45,11 @@ enum tprk77_mod_keys {
 #define SR SAFE_RANGE
 
 enum tprk77_keys {
-  MC_0P0 = SR,  /* 0.0 */
+  MO_LLWR = SR, /* Left Lower */
+  MO_RLWR,      /* Right Lower */
+  MO_LRSE,      /* Left Raise */
+  MO_RRSE,      /* Right Raise */
+  MC_0P0,       /* 0.0 */
   MC_PI,        /* 3.14159265358979323846 (As defined in "math.h") */
   MC_CXCF,      /* C-x C-f (Open file) */
   MC_CXCS,      /* C-x C-s (Save file) */
@@ -112,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MD_HYPR,
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_LCTL, KC_LALT,
-                                                            MO_RSE,
-                                          KC_BSPC, MO_NAV,  MO_LWR,
+                                                            MO_LRSE,
+                                          KC_BSPC, MO_NAV,  MO_LLWR,
       /* RIGHT: */
       KC_MINS, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
       KC_RBRC, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
@@ -121,8 +123,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MD_MEH,  KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                         KC_UP,   KC_DOWN, TG_GMNG, KC_GRV,  KC_RGUI,
       KC_LALT, KC_LCTL,
-      MO_RSE,
-      MO_LWR,  KC_SPC,  KC_ENT
+      MO_RRSE,
+      MO_RLWR, KC_SPC,  KC_ENT
   ),
 
   /*
@@ -179,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_LCTL, KC_LALT,
                                                             XXXXXXX,
-                                          KC_BSPC, XXXXXXX, MO_LWR,
+                                          KC_BSPC, XXXXXXX, MO_LLWR,
       /* RIGHT: */
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
       XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX,
@@ -188,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_UP,   KC_DOWN, XXXXXXX, XXXXXXX, KC_RGUI,
       KC_RALT, KC_RCTL,
       XXXXXXX,
-      MO_LWR,  KC_SPC,  KC_ENT
+      MO_RLWR,  KC_SPC,  KC_ENT
   ),
 
   /*
@@ -244,7 +246,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LSFT, KC_DLR,  KC_AT,   KC_SLSH, KC_ASTR, KC_PLUS, MD_HYPR,
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_LCTL, KC_LALT,
-                                                            MO_RSE,
+                                                            MO_LRSE,
                                           MD_CBSP, XXXXXXX, XXXXXXX,
       /* RIGHT: */
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
@@ -253,7 +255,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MD_MEH,  KC_TILD, KC_AMPR, KC_PIPE, KC_CIRC, KC_PERC, KC_RSFT,
                         KC_UP,   KC_DOWN, XXXXXXX, XXXXXXX, KC_RGUI,
       KC_RALT, KC_RCTL,
-      MO_RSE,
+      MO_RRSE,
       XXXXXXX, KC_SPC,  KC_ENT
   ),
 
@@ -379,12 +381,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
   /* MO_NAV  */ [0] = ACTION_LAYER_MOMENTARY(LR_NAV),
-  /* MO_LWR */  [1] = ACTION_LAYER_MOMENTARY(LR_LWR),
-  /* MO_RSE */  [2] = ACTION_LAYER_MOMENTARY(LR_RSE),
-  /* TG_GMNG */ [3] = ACTION_LAYER_TOGGLE(LR_GMNG)
+  /* TG_GMNG */ [1] = ACTION_LAYER_TOGGLE(LR_GMNG)
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+#define LEFT_KEY_STATE  (1U << 0)
+#define RIGHT_KEY_STATE (1U << 1)
+
+void update_left_right_layer(const uint16_t keycode, const keyrecord_t* const record,
+                             const uint16_t left_keycode, const uint16_t right_keycode,
+                             const uint8_t layer, uint8_t* keys_state_ptr)
+{
+  const uint32_t layer_mask = (1UL << layer);
+  const uint16_t old_keys_state = *keys_state_ptr;
+  /* Update the state of the left and right keys */
+  if (record->event.pressed) {
+    if (keycode == left_keycode) {
+      *keys_state_ptr |= LEFT_KEY_STATE;
+    } else if (keycode == right_keycode) {
+      *keys_state_ptr |= RIGHT_KEY_STATE;
+    }
+  } else {
+    if (keycode == left_keycode) {
+      *keys_state_ptr &= ~LEFT_KEY_STATE;
+    } else if (keycode == right_keycode) {
+      *keys_state_ptr &= ~RIGHT_KEY_STATE;
+    }
+  }
+  /* Update the layer if the state has transitioned */
+  if (*keys_state_ptr && !old_keys_state) {
+    layer_state_set(layer_state | layer_mask);
+  } else if (!*keys_state_ptr && old_keys_state) {
+    layer_state_set(layer_state & ~layer_mask);
+  }
+}
+
+uint8_t lower_keys_state = 0;
+uint8_t raise_keys_state = 0;
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record)
+{
+  /* Update the left/right layer keys */
+  update_left_right_layer(keycode, record, MO_LLWR, MO_RLWR, LR_LWR, &lower_keys_state);
+  update_left_right_layer(keycode, record, MO_LRSE, MO_RRSE, LR_RSE, &raise_keys_state);
+  /* Process macro keys */
   if (record->event.pressed) {
     switch (keycode) {
       case MC_0P0:
@@ -413,7 +452,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 }
 
-void set_leds_by_layer(uint8_t layer_ind) {
+void set_leds_by_layer(const uint8_t layer_ind)
+{
   /* If each LED is a bit, we can indicate up to seven layers (at least one LED is on) */
   const uint8_t adj_layer_ind = layer_ind < 7 ? layer_ind + 1 : 0;
   /* Layers over seven will just blank the LEDs */
