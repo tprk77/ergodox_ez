@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_LCTL, KC_LALT,
                                                             XXXXXXX,
-                                          KC_BSPC, XXXXXXX, MO_LLWR,
+                                          MD_CBSP, XXXXXXX, MO_LLWR,
       /* RIGHT: */
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
       XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX,
