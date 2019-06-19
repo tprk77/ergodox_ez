@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+------+------+------+------+------+------|
    * |  Tab   |   Q  |   W  |   F  |   P  |   G  |  [   |
    * |--------+------+------+------+------+------|      |
-   * |  Caps  |   A  |   R  |   S  |   T  |   D  |------|
+   * |  Ctrl  |   A  |   R  |   S  |   T  |   D  |------|
    * |--------+------+------+------+------+------| Hyper|
    * |  Shift |   Z  |   X  |   C  |   V  |   B  |      |
    * `--------+------+------+------+------+-------------'
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /* LEFT: */
       KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_EQL,
       KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_LBRC,
-      KC_CAPS, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,
+      KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MD_HYPR,
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_LCTL, KC_LALT,
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+------+------+------+------+------+------|
    * |  Tab   |  F1  |  F2  |  F3  |  F4  |  F5  | XXXX |
    * |--------+------+------+------+------+------|      |
-   * |  Caps  |  1   |  2   |  3   |  4   |  5   |------|
+   * |  Ctrl  |  1   |  2   |  3   |  4   |  5   |------|
    * |--------+------+------+------+------+------| Hyper|
    * |  Shift |  U   |  L   |  F   |  E   |  Pi  |      |
    * `--------+------+------+------+------+-------------'
@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /* LEFT: */
       KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       KC_TAB,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,
-      KC_CAPS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+      KC_LCTL, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
       KC_LSFT, KC_U,    KC_L,    KC_F,    KC_E,    MC_PI,   MD_HYPR,
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_LCTL, KC_LALT,
@@ -203,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+------+------+------+------+------+------|
    * |  Tab   |  \   |  =   |  <   |  >   |  `   | XXXX |
    * |--------+------+------+------+------+------|      |
-   * |  Caps  |  !   |  -   |  (   |  )   |  "   |------|
+   * |  Ctrl  |  !   |  -   |  (   |  )   |  "   |------|
    * |--------+------+------+------+------+------| Hyper|
    * |  Shift |  $   |  @   |  /   |  *   |  +   |      |
    * `--------+------+------+------+------+-------------'
@@ -242,7 +242,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /* LEFT: */
       KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       KC_TAB,  KC_BSLS, KC_EQL,  KC_LABK, KC_RABK, KC_GRV,  XXXXXXX,
-      KC_CAPS, KC_EXLM, KC_MINS, KC_LPRN, KC_RPRN, KC_DQT,
+      KC_LCTL, KC_EXLM, KC_MINS, KC_LPRN, KC_RPRN, KC_DQT,
       KC_LSFT, KC_DLR,  KC_AT,   KC_SLSH, KC_ASTR, KC_PLUS, MD_HYPR,
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_LCTL, KC_LALT,
@@ -269,7 +269,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+------+------+------+------+------+------|
    * |  Tab   | C-?  | M-S-o|  M-o | M-x  | C-g  | C-x  |
    * |--------+------+------+------+------+------| C-s  |
-   * |  Caps  | C-l  | C-w  | M-w  | C-y  | Del  |------|
+   * |  Ctrl  | C-l  | C-w  | M-w  | C-y  | Del  |------|
    * |--------+------+------+------+------+------| Hyper|
    * |  Shift | C-/  | C-r  | C-s  | C-x b| C-x k|      |
    * `--------+------+------+------+------+-------------'
@@ -308,7 +308,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /* LEFT: */
       KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       KC_TAB,  MD_CQUE, MC_CXCO, MC_CXO,  MD_MX,   MD_CG,   MC_CXCS,
-      KC_CAPS, MD_CL,   MD_CW,   MD_MW,   MD_CY,   KC_DEL,
+      KC_LCTL, MD_CL,   MD_CW,   MD_MW,   MD_CY,   KC_DEL,
       KC_RSFT, MD_CSLS, MD_CR,   MD_CS,   MC_CXB,  MC_CXK,  MD_HYPR,
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_LCTL, KC_LALT,
