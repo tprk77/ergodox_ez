@@ -278,9 +278,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                        ,-------------.
    *                                        | Ctrl | Alt  |
    *                                 ,------|------|------|
-   *                                 |      |      | XXXX |
+   *                                 |      |      | Alt  |
    *                                 | Bspc | Nav  |------|
-   *                                 |      |      | XXXX |
+   *                                 |      |      | Ctrl |
    *                                 `--------------------'
    *
    * RIGHT:
@@ -312,8 +312,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_RSFT, MD_CSLS, MD_CR,   MD_CS,   MC_CXB,  MC_CXK,  MD_HYPR,
       KC_LGUI, KC_INS,  KC_APP,  KC_LEFT, KC_RGHT,
                                                    KC_LCTL, KC_LALT,
-                                                            XXXXXXX,
-                                          KC_BSPC, MO_NAV,  XXXXXXX,
+                                                            KC_LALT,
+                                          KC_BSPC, MO_NAV,  KC_LCTL,
       /* RIGHT: */
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
       XXXXXXX, KC_PGUP, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX,
