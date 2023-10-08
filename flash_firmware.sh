@@ -8,12 +8,17 @@ set -o pipefail
 
 ERGODOX_EZ_FIRMWARE="build/ergodox_ez_tprk77.hex"
 
-if ! command -v teensy_loader_cli &>/dev/null; then
-    echo "Missing teensy_loader_cli! See also:"
-    echo "https://www.pjrc.com/teensy/loader_cli.html"
+if [ -f "/.dockerenv" ]; then
+    echo "ERROR: This is not going to work in a Docker container!" >&2
     exit 1
 fi
 
-teensy_loader_cli -mmcu=atmega32u4 -v "${ERGODOX_EZ_FIRMWARE}"
+if ! command -v teensy_loader_cli &>/dev/null; then
+    echo "ERROR: Missing teensy_loader_cli!" >&2
+    echo "ERROR: See also: https://www.pjrc.com/teensy/loader_cli.html" >&2
+    exit 1
+fi
+
+teensy_loader_cli -v -mmcu=atmega32u4 -w "${ERGODOX_EZ_FIRMWARE}"
 
 exit 0

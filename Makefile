@@ -4,10 +4,6 @@ QMK_DIR := qmk_firmware
 QMK_TMP_DIR := build/qmk_tmp
 BUILD_DIR := build
 
-# These are Ubuntu packages
-BUILD_DEPENDS := gcc-avr avr-libc
-FLASH_DEPENDS := teensy-loader-cli
-
 all:
 	mkdir -p "$(BUILD_DIR)"
 	mkdir -p "$(QMK_TMP_DIR)/keyboards"
@@ -24,8 +20,5 @@ all:
 
 clean:
 	-rm -rf build
-
-depends:
-	sudo apt-get install $(BUILD_DEPENDS) $(FLASH_DEPENDS) # UBUNTU ONLY
 
 .PHONY: all clean depends
